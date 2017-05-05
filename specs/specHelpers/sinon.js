@@ -1,0 +1,1 @@
+global.Sinon = require('sinon');

@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+process.env.app = 'api';
+require('../initEnv');
+const app = Starters.api;
+const logger = new Logger('server');
+const server = app.listen(app.get('port'), () => {
+	logger.info(`Express server listening on port ${server.address().port}`);
+});
+
+if (global.gc) {
+	setInterval(() => {
+		logger.info('Before gc: ', process.memoryUsage());
+		global.gc();
+		logger.info('After gc: ', process.memoryUsage());
+	}, 2 * 60 * 1000);
+}
